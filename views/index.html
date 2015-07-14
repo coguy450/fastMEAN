@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+<title>fast MEAN</title>
+
+</head>
+
+<body ng-controller="MainController">
+
+<div class="col-md-12" style="background-color: #006699">
+
+
+</div>
+{% raw %}
+<h1>Bare bones MEAN template</h1>
+{{helloWorld}}
+
+<br>
+<ng-view></ng-view>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="app.js"></script>
+
+
+{% endraw %}
+</body>
+
+</html>
