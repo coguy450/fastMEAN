@@ -1,14 +1,11 @@
 'use strict';
 var mongoose = require('mongoose');
 var fs = require('fs-extra');
-    var envLoaded = require('../../config/env/'+ process.env.NODE_ENV);
     // Connection URL
     var url;
 
-
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
-
 
 exports.getCollections = function(req,res){
     mongoose.connection.db.collectionNames(function(err, names) {

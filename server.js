@@ -6,6 +6,7 @@ var bodyParser = require('body-parser'),
     mongoose = require('mongoose');
 var swig  = require('swig');
 var controller = require('./app/controllers/server.controller.js');
+var dbConsole = require('./app/controllers/dbconsole.server.controller.js');
 
 mongoose.connect('mongodb://localhost/fastMEAN');
 
@@ -24,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/',controller.index);
-
+app.get('/dbconsole/collections', dbConsole.getCollections);
 var server = app.listen('3000', function() {
     var host = server.address().address;
     var port = server.address().port;
