@@ -15,6 +15,10 @@
                 templateUrl: 'modules/core/views/main.html',
                 controller: 'MainController'
             })
+            .when('/db',{
+                templateUrl: 'modules/dbConsole/dbconsole.client.view.html',
+                controller: 'dbConsoleController'
+            })
 
 
 

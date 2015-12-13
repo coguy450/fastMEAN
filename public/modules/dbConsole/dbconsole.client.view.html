@@ -1,0 +1,81 @@
+<section class="full-height scroll">
+        <div class="contrainer-fluid">
+            <br />
+            <h2>Mongo Database Administration Console</h2>
+            <alert ng-show="error" type="danger" close="error=null">{{error}}</alert>
+            <div class="col-md-12">
+                <h4>List of Collections (click one to start)</h4>
+                <ul class="list-inline">
+                    <li ng-repeat="c in collList"><a ng-click="doFind(c.name)">{{c.name}}</a></li>
+                </ul>
+            </div>
+            <div class="col-md-12 well" ng-show="collViewing">
+
+                <div class="form-group col-sm-4">
+                    <form ng-submit="advancedFind()">
+                        <label>Search By: {{key}}</label>
+                         <input type="text" ng-model="actionToDo" class="form-control" placeholder="Search this collection (case insensitive)">
+                        <a ng-click="advancedFind()" class="btn btn-default">Submit</a>
+                        <a ng-click="doClear()" class="btn btn-default">Clear</a>
+                    </form>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label>Limit Results</label>
+                    <select class="form-control" ng-model="limiter" ng-init="limiter=25">
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                    </select>
+                    </div>
+                <div class="form-group col-sm-2">
+                    <label>Drop</label><br>
+                    <button type="button" ng-click="showDrop = !showDrop" class="btn btn-danger">Drop Collection</button>
+                    <div ng-show="showDrop">
+                        <h4 >Are you really sure you want to do this?</h4>
+                        <button type="button" ng-click="dropCollection()" class="btn btn-danger">Yes, I'm sure</button>
+                        <button type="button" ng-click="showDrop = false" class="btn btn-default">No, I'm not</button>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label>Auto Populate</label><br>
+                    <button type="button" ng-click="seedCollection()" class="btn btn-primary">Seed AppVConfigs</button>
+                    <br>
+                    <button type="button" ng-click="seedApplications()" class="btn btn-primary">Seed Applications</button>
+                    <br>
+                    <button type="button" ng-click="seedMenus()" class="btn btn-primary">Seed Menus</button>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label>Download</label>
+                    <br>
+                    <button type="button" ng-click="downloadColl()" class="btn btn-primary">Download Collection</button>
+                    <a ng-show="downloadLink" ng-href="{{downloadLink.path}}" download>Download{{collViewing}}</a>
+                </div>
+
+                <div class="col-md-12" ng-hide="showLoading">
+                    <h4 ng-show="results"> Contents of {{collViewing}} -  {{countOfResults}} records</h4>
+                    <h4 ng-hide="results">No results, choose different search terms</h4>
+                    <table class="table-striped table-bordered table-hover table">
+                        <thead>
+                            <th ng-repeat="(key,value) in results[0]"><a ng-click="searchKey(key)">{{key}}</a></th>
+
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in results">
+                                <td class="col-sm-2" ng-repeat="(key,value) in r">{{value}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-show="showLoading">
+                    <img src="../images/loading.gif" ng-show="loading" class="text-center">
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </section>
