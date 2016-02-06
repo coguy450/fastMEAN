@@ -1,5 +1,6 @@
 .DS_Store
 .nodemonignore
+node_modules
 .sass-cache/
 npm-debug.log
 /

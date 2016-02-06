@@ -4,8 +4,6 @@
 
     .controller('MainController', function ($scope) {
        $scope.helloWorld = 'This is an Angular Variable';
-            $scope.d3W = 100;
-            $scope.d3Ex = d3.select("body").append("avg").append("rect").attr("width",50).attr("height",200).style("fill:blue");
     })
 
 
