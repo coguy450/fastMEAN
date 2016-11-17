@@ -2,12 +2,26 @@
 var express = require('express'),
      app = express();
 var path = require('path');
-var bodyParser = require('body-parser'),
-    mongoose = require('mongoose');
-var swig  = require('swig');
-var controller = require('./app/controllers/server.controller.js');
+var bodyParser = require('body-parser');
+var mongodb = require('mongodb');
 
-mongoose.connect('mongodb://localhost/fastMEAN');
+var swig  = require('swig');
+var request = require('superagent');
+var controller = require('./app/controllers/server.controller.js');
+var dbConn;
+
+function conMongo(callback) {
+    mongodb.connect('mongodb://localhost/facebookHack', {db: { autoReconnect: true, connectTimeoutMS: 30000 }}, (err, db) => {
+        if (err) {
+            console.log(err);
+        } else {
+            dbConn = (!err ? db : null);
+            callback(dbConn);
+        }
+    })
+};
+
+
 
 app.set('view engine', 'html');
 app.set('view options', {
@@ -22,8 +36,69 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/favicon.ico', express.static('public/images/favicon.ico'));
+app.get('/manager', controller.index);
+app.post('/', function(req, res) {
+    var data = req.body;
+    if (data.object === 'page') {
+        data.entry.forEach(function (entry) {
+            var pageID = entry.id;
+            var timeOfEvent = entry.time;
+            console.log(entry);
+            entry.messaging.forEach(function (event) {
+                if (event.message) {
+                    console.log('event', event);
+                    conMongo((db) => {
+                        const messages = db.collection('fbMessages');
+                        messages.insert(event);
+                    })
+                } else {
+                    console.log("Webhook received unknown event: ", event);
+                }
+            });
+        });
 
-app.get('/',controller.index);
+        res.sendStatus(200);
+
+    }
+});
+
+
+app.post('/webhook', (req, res) => {
+    console.log(req);
+    res.sendStatus(200);
+})
+
+const sendFacebookMessage = () => {
+    request
+        .post('https://graph.facebook.com/v2.6/me/messages?access_token=EAAH40uod4MYBAOFPpk69zWxr3IEqR4uIYDXGi4yzOZAvsJyJXzWmUddv97KeoTmjky1lgoRu45tPZAPoNlP1Q19HMTw6iGJadh9SzJGz2IjlHlrzZCrOZCQapZAO0hYnMidpmwRzlKw7Vg2tagsPCCQKaaFs2smXZBR1YMUQzCZBwZDZD"')
+
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .send({ "recipient": {"id":"1089616971154388"},"message" :{"text":"hello, world!"}})
+        .end(function(err, res){
+            if (err || !res.ok) {
+                console.log(err);
+            } else {
+                console.log('yay got ' + JSON.stringify(res.body));
+            }
+        })
+}
+app.get('/sendMessage', sendFacebookMessage);
+
+
+app.get('/messages', (req, res) => {
+    conMongo((db) => {
+        const messages = db.collection('fbMessages');
+        messages.find({}).toArray((error, results) => {
+            res.status(200).send(results);
+        })
+    })
+})
+
+
+
+
+
 
 var server = app.listen('3005', function() {
     var host = server.address().address;
