@@ -70,7 +70,7 @@ app.post('/webhook', (req, res) => {
 
 const sendFacebookMessage = () => {
     request
-        .post('https://graph.facebook.com/v2.6/me/messages?access_token=EAAH40uod4MYBAOFPpk69zWxr3IEqR4uIYDXGi4yzOZAvsJyJXzWmUddv97KeoTmjky1lgoRu45tPZAPoNlP1Q19HMTw6iGJadh9SzJGz2IjlHlrzZCrOZCQapZAO0hYnMidpmwRzlKw7Vg2tagsPCCQKaaFs2smXZBR1YMUQzCZBwZDZD"')
+        .post('https://graph.facebook.com/v2.6/me/messages?access_token=TOKEN')
 
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
