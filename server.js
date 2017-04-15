@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express'),
      app = express();
-var path = require('path');
+// var path = require('path');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 
@@ -29,13 +29,13 @@ app.set('view options', {
 });
 
 // app.engine('html', swig.renderFile);
-app.set('view cache', false);
+// app.set('view cache', false);
 // To disable Swig's cache, do the following:
 // swig.setDefaults({ cache: false });
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/aetnafavicon.ico', express.static('public/images/favicon.ico'));
+app.use('/favicon.ico', express.static('public/images/aetnafavicon.ico'));
 
 app.get('/', controller.index);
 

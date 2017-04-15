@@ -4,10 +4,10 @@
 
     .controller('MainController', function ($scope, $http) {
        $scope.helloWorld = 'This is an Angular Variable';
-        $http.get('/messages').success((data) => {
-            console.log(data);
-            $scope.messages = data;
-        })
+        // $http.get('/messages').success((data) => {
+        //     console.log(data);
+        //     $scope.messages = data;
+        // })
 
 
 
@@ -20,7 +20,7 @@
             //This can be used for your client side routing
         $routeProvider
             .when('/', {
-                templateUrl: 'modules/core/views/main.html',
+                templateUrl: 'main.html',
                 controller: 'MainController'
             })
             .when('/db',{
