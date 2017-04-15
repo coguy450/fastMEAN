@@ -1,33 +1,4 @@
 <section class="col-md-12">
-    <h2>Facebook Message Manager</h2>
-
-    <h4>
-        List of Conversations
-    </h4>
-    <table class="table table-striped">
-       <tr>
-           <th>Timestamp</th>
-          <th>Sender Id</th>
-
-           <th>Msg Sequence</th>
-           <th>Message Text</th>
-        <th>Enter Response</th>
-       <th>Set as Auto Reply</th>
-        <th>Send</th>
-       </tr>
-        <tr ng-repeat="m in messages">
-            <td>{{m.timestamp | date: 'short'}}</td>
-            <td>{{m.sender.id}}</td>
-            <td>{{m.message.seq}}</td>
-            <td>{{m.message.text}}</td>
-            <td><textarea class="form-control" ng-model="m.responseText" placeholder="Enter a response to this message"></textarea></td>
-            <td><div class="checkbox">
-                <label>
-                    <input type="checkbox"> AutoReply
-                </label>
-            </div></td>
-        </tr>
-    </table>
 
 
 </section>

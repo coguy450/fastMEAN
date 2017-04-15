@@ -5,13 +5,13 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 
-var swig  = require('swig');
+// var swig  = require('swig');
 var request = require('superagent');
 var controller = require('./app/controllers/server.controller.js');
 var dbConn;
 
 function conMongo(callback) {
-    mongodb.connect('mongodb://localhost/youdb', (err, db) => {
+    mongodb.connect('mongodb://localhost/test', (err, db) => {
         if (err) {
             console.log(err);
         } else {
@@ -28,14 +28,14 @@ app.set('view options', {
     layout: false
 });
 
-app.engine('html', swig.renderFile);
+// app.engine('html', swig.renderFile);
 app.set('view cache', false);
 // To disable Swig's cache, do the following:
-swig.setDefaults({ cache: false });
+// swig.setDefaults({ cache: false });
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/favicon.ico', express.static('public/images/favicon.ico'));
+app.use('/aetnafavicon.ico', express.static('public/images/favicon.ico'));
 
 app.get('/', controller.index);
 
