@@ -2,14 +2,10 @@
 
     var app = angular.module('app', ['ngRoute'])
 
-    .controller('MainController', function ($scope, $http) {
+    .controller('AppController', function ($scope, $http) {
        $scope.helloWorld = 'This is an Angular Variable';
-        // $http.get('/messages').success((data) => {
-        //     console.log(data);
-        //     $scope.messages = data;
-        // })
 
-
+      
 
 
     })

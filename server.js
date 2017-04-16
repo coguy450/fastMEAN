@@ -22,7 +22,6 @@ function conMongo(callback) {
 };
 
 
-
 app.set('view engine', 'html');
 app.set('view options', {
     layout: false
@@ -38,6 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/favicon.ico', express.static('public/images/aetnafavicon.ico'));
 
 app.get('/', controller.index);
+app.get('/getCall', controller.getCall);
 
 var server = app.listen('3005', function() {
     var host = server.address().address;
